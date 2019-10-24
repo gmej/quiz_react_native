@@ -50,38 +50,6 @@ class App extends React.Component {
     super(props);
   }
 
-  async saveQuestions() {
-    console.log("Save questions");
-    try {
-      console.log("aaa")
-      console.log('this.props.questions :', this.props.questions);
-      await AsyncStorage.setItem(STORAGE_KEY, this.props.questions);
-      console.log("Saved!");
-      var questions = await AsyncStorage.getItem(STORAGE_KEY);
-      console.log('questions :', questions);
-    } catch (error) { // Error saving data }
-    }
-  }
-
-  async loadQuestions() {
-    console.log("Save questions");
-
-    try {
-      var questions = await AsyncStorage.getItem(STORAGE_KEY);
-      if (questions === null) {
-        alert("No hay preguntas guardadas!");
-      } else {
-        console.log(questions);
-        this.props.dispatch(initQuestions(questions));
-      }
-    } catch (error) { // Error retrieving data }
-    }
-  }
-
-  async removeQuestions() {
-    console.log("Save questions");
-  }
-
   startGame() {
     this.props.dispatch(fetchDataFromServer());
 
@@ -90,6 +58,49 @@ class App extends React.Component {
   componentDidMount() {
     this.startGame();
   }
+
+  async save(storage) {
+    let questions = storage;
+    try {
+      questions = JSON.stringify(questions);
+      await AsyncStorage.setItem(STORAGE_KEY, questions);
+      alert("Questions saved!");
+    } catch (error) {
+      alert('Failed to save questions.');
+      console.log('error STORAGE_SAVE:', error);
+    }
+    return;
+  }
+
+  async load() {
+    try {
+      console.log("load questions");
+      let questions = await AsyncStorage.getItem(STORAGE_KEY);
+      questions = JSON.parse(questions);
+      if (questions === null) {
+        alert("No hay preguntas guardadas!");
+      } else {
+        this.props.dispatch(initQuestions(questions));
+        alert("Questions loaded!");
+      }
+    } catch (error) {
+      alert('Failed to load questions.');
+      console.log('error STORAGE_LOAD:', error);
+    }
+    return;
+  }
+
+  async remove() {
+    try {
+      await AsyncStorage.clear();
+      alert('Questions cleared!');
+    } catch (e) {
+      alert('Failed to clear questions.')
+      console.log('error STORAGE_REMOVE:', error);
+    }
+  }
+
+
 
   render() {
     if (this.props.fetchError != null) {
@@ -136,9 +147,15 @@ class App extends React.Component {
               finished={this.props.finished}
               availableQuestions={this.props.availableQuestions}
               currentQuestion={this.props.currentQuestion}
-              onSaveQuestions = {this.saveQuestions}
-              onLoadQuestions = {this.loadQuestions}
-              onRemoveQuestions = {this.removeQuestions}
+              onSaveQuestions={() => {
+                this.save(this.props.questions);
+              }}
+              onLoadQuestions={() => {
+                this.load();
+              }}
+              onRemoveQuestions={() => {
+                this.remove();
+              }}
             />
           </View>
         </View>);

@@ -1,12 +1,11 @@
+import { AsyncStorage } from "react-native";
+
 export const QUESTION_ANSWER = 'QUESTION_ANSWER';
 export const CHANGE_QUESTION = 'CHANGE_QUESTION';
 export const SUBMIT = 'SUBMIT';
 export const INIT_QUESTIONS = 'INIT_QUESTIONS';
 export const IS_FETCHING = 'IS_FETCHING';
 export const FETCH_ERROR = 'FETCH_ERROR';
-export const SAVE_QUESTIONS = 'SAVE_QUESTIONS';
-export const LOAD_QUESTIONS = 'LOAD_QUESTIONS';
-export const REMOVE_QUESTIONS = 'REMOVE_QUESTIONS';
 
 const MY_TOKEN = '170928d0aade25dc7cc5';
 
@@ -31,18 +30,6 @@ export function fetchQuestions(isFetching) {
 export function initQuestions(questions) {
     console.log('initQuestions action!');
     return { type: INIT_QUESTIONS, payload: { questions } };
-}
-
-export function saveQuestions(error) {
-    return { type: SAVE_QUESTIONS, payload: { error } }
-}
-
-export function loadQuestions(error) {
-    return { type: LOAD_QUESTIONS, payload: { error } }
-}
-
-export function removeQuestions(error) {
-    return { type: REMOVE_QUESTIONS, payload: { error } }
 }
 
 export function fetchDataFromServer() {
