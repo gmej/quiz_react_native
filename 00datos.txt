@@ -1,0 +1,7 @@
+Miembros de la pareja:
+    - Guillermo Mejías
+    - Adrián Simón
+
+Hemos probado la práctica sólo en android con expo.
+
+Se han realizado las 2 mejoras: AsyncStorage y reactNavigation

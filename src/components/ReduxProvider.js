@@ -1,10 +1,25 @@
 import React from 'react';
-import thunkMiddleware from 'redux-thunk'
-import { createStore, applyMiddleware } from 'redux';
+import { createAppContainer } from 'react-navigation';
+import { createStackNavigator } from 'react-navigation-stack';
 import { Provider } from 'react-redux';
+import { createStore, applyMiddleware } from 'redux';
+import thunkMiddleware from 'redux-thunk'
 import GlobalState from '../redux/reducers';
 import App from './App';
+import Home from "./Home";
 
+const AppNavigator = createAppContainer(createStackNavigator({
+    Home: {
+        screen: Home
+    },
+    App: {
+        screen: App
+    }
+},
+    {
+        initialRouteName: "Home",
+        headerMode: "none"
+    }));
 
 export default class ReduxProvider extends React.Component {
     constructor(props) {
@@ -24,7 +39,7 @@ export default class ReduxProvider extends React.Component {
     render() {
         return (
             <Provider store={this.store}>
-                <App />
+                <AppNavigator />
             </Provider>
         );
     }

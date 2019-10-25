@@ -156,6 +156,11 @@ class App extends React.Component {
               onRemoveQuestions={() => {
                 this.remove();
               }}
+              onGoBack={
+                () => {
+                  this.props.navigation.navigate("Home");
+                }
+              }
             />
           </View>
         </View>);

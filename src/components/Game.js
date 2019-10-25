@@ -38,8 +38,8 @@ let styles = StyleSheet.create({
         flexDirection: "row",
         justifyContent: "flex-start",
         alignItems: "center",
-        fontSize: 30,
-        color: "pink"
+        fontSize: 28,
+        color: "pink",
     },
 
     imageView: {
@@ -64,6 +64,7 @@ export default class Game extends React.Component {
         this.onSaveQuestions = this.onSaveQuestions.bind(this);
         this.onLoadQuestions = this.onLoadQuestions.bind(this);
         this.onRemoveQuestions = this.onRemoveQuestions.bind(this);
+        this.onGoBack = this.onGoBack.bind(this);
     }
 
     onSubmitPress() {
@@ -74,17 +75,21 @@ export default class Game extends React.Component {
 
         this.props.changeQuestion(index);
     }
-    
-    onSaveQuestions(){
+
+    onSaveQuestions() {
         this.props.onSaveQuestions();
     }
-    
-    onLoadQuestions(){
+
+    onLoadQuestions() {
         this.props.onLoadQuestions();
     }
-    
-    onRemoveQuestions(){
+
+    onRemoveQuestions() {
         this.props.onRemoveQuestions();
+    }
+
+    onGoBack() {
+        this.props.onGoBack();
     }
 
     render() {
@@ -126,6 +131,7 @@ export default class Game extends React.Component {
                         targetQuestionId={this.props.currentQuestion + 1} />
                 </View>
                 <View style={styles.buttons}>
+                    <Button onPress={this.onGoBack} text="<<" />
                     <Button onPress={this.onSaveQuestions} text="Save Questions" />
                     <Button onPress={this.onLoadQuestions} text="Load Questions" />
                     <Button onPress={this.onRemoveQuestions} text="Remove Questions" />

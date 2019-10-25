@@ -5,12 +5,12 @@ let styles = StyleSheet.create({
     button: {
         backgroundColor: "#FF4136",
         borderWidth: 1,
-        borderRadius: 30
+        borderRadius: 25
     },
     text: {
         color: "white",
         fontSize: 12,
-        margin: 10
+        margin: 8
     }
 });
 
